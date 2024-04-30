@@ -1,0 +1,22 @@
+<div class="cs-modal">
+    <div class="cs-modal__close-btn-wrapper">
+        <button class="cs-modal__close-btn" mat-dialog-close>
+            <mat-icon class="cs-modal__close-btn-icon">close</mat-icon>
+        </button>
+    </div>
+    <mat-dialog-content>
+        <div class="cs-modal__wrapper">
+            <mat-form-field appearance="outline">
+                <mat-label>Статус</mat-label>
+                <mat-select [(value)]="selected" formControlName="newStatus">
+                    <mat-option [value]="status.backlog">{{status.backlog}}</mat-option>
+                    <mat-option [value]="status.inprogress">{{status.inprogress}}</mat-option>
+                    <mat-option [value]="status.done">{{status.done}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="cs-modal__btn-wrapper">
+                <button class="btn" [disabled]="!newStatus.invalid" (click)="saveStatus()">Сохранить</button>
+            </div>
+        </div>
+    </mat-dialog-content>
+</div>

@@ -1,0 +1,37 @@
+@if (taskData$ | async; as task) {
+    <section class="task-details">
+        <div class="container container--page">
+            <div class="task-details__task">
+                <div class="task-details__header">
+                    <a routerLink="/" title="Назад">
+                        <mat-icon>arrow_back_ios</mat-icon>
+                    </a>
+                    <h2>{{task.title}}</h2>
+                </div>
+                <div class="task-details__wrapper">
+                    <span>Описание:</span><span>{{task.name}}</span>
+                    <span>Исполнители:</span>
+                    <p class="task-details__extra-wrapper">
+                        @for (emp of task.performers; track emp) {
+                            <span class="performer">{{emp}}</span>
+                        }
+                        <button class="task-details__edit-btn" (click)="editPerformers(task.performers)">
+                            <mat-icon class="task-details__btn-icon">edit</mat-icon>
+                        </button>
+                    </p>
+                    <span>Дедлайн:</span><span>{{task.deadline?.toString() | date : 'd MMMM y'}}</span>
+                    <span>Приоритет:</span>
+                    <p><span class="task-details__priority" appPriority [priority]="task.priority!">{{task.priority}}</span></p>
+                    <span>Статус:</span>
+                    <p class="task-details__extra-wrapper">
+                        <span>{{task.status}}</span>
+                        <button class="task-details__edit-btn" (click)="editStatus(task.status!)">
+                            <mat-icon class="task-details__btn-icon">edit</mat-icon>
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

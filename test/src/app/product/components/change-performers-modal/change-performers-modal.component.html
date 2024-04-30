@@ -1,0 +1,34 @@
+<div class="cp-modal">
+    <div class="cp-modal__close-btn-wrapper">
+        <button class="cp-modal__close-btn" mat-dialog-close>
+            <mat-icon class="cp-modal__close-btn-icon">close</mat-icon>
+        </button>
+    </div>
+    <mat-dialog-content>
+        <div class="cp-modal__wrapper" [formGroup]="performersForm">
+            <mat-form-field appearance="outline">
+                <mat-label>Исполнители</mat-label>
+                <mat-chip-grid #chipGrid formArrayName="newPerformers">
+                    @for (employee of newPerformers.value; track employee; let idx = $index) {
+                        <mat-chip-row (removed)="removeEmployee(idx)">
+                            {{employee}}
+                            <button matChipRemove [attr.aria-label]="'remove ' + employee">
+                              <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip-row>
+                    }
+                </mat-chip-grid>
+                <input matInput #employeeInput [matChipInputFor]="chipGrid" [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="addEmployee($event)" placeholder="Добавить исполнителя...">
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedEmployee($event)">
+                    @for (employee of allEmployees; track employee) {
+                      <mat-option [value]="employee">{{employee}}</mat-option>
+                    }
+                </mat-autocomplete>
+            </mat-form-field>
+            <div class="cp-modal__btn-wrapper">
+                <button class="btn" (click)="savePerformers()">Сохранить</button>
+            </div>
+        </div>
+    </mat-dialog-content>
+</div>

@@ -1,0 +1,35 @@
+<section class="task-list">
+    <div class="container container--page task-list__container">
+        <div class="task-list__wrapper">
+            <h1 class="task-list__title">Список задач</h1>
+            <button class="btn task-list__btn" (click)="createTask()">
+                Создать задачу
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <div class="task-list__sorting">
+            <div class="task-list__sorting-block">
+                <span>Сортировать:</span>
+                <button class="task-list__sort-btn" (click)="sortBy('status')">по статусу</button>
+                <button class="task-list__sort-btn" (click)="sortBy('priority')">по приоритету</button>
+                <button class="task-list__sort-btn" (click)="sortBy('deadline')">по дате дедлайна</button>
+            </div>
+            <div class="task-list__filter-block">
+                <span>Фильтр:</span>
+                <mat-form-field appearance="outline">
+                    <mat-label>По исполнителю:</mat-label>
+                    <mat-select (selectionChange)="filterByPerformers($event)">
+                        @for (employee of allEmployees; track employee) {
+                            <mat-option [value]="employee">{{employee}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <section class="task-list__list">
+            @for (task of allTasks!| sortBy:sortMethod:isASC | performers:employee; track task) {
+                <app-task [taskData]="task"></app-task>
+            }
+        </section>
+    </div>
+</section>

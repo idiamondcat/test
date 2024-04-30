@@ -1,0 +1,14 @@
+<div class="task" (click)="openTask()">
+    <div class="task__wrapper">
+        <span class="task__priority" appPriority [priority]="taskData()?.priority!"></span>
+        <span>{{taskData()?.status}}</span>
+    </div>
+    <h3 class="task__title">{{taskData()?.title}}</h3>
+    <p class="task__name">{{taskData()?.name}}</p>
+    <p class="task__date">{{taskData()?.deadline?.toString() | date : 'd MMMM y'}}</p>
+    <div class="task__performers-wrapper">
+        @for(emp of taskData()?.performers; track emp) {
+            <span class="performer">{{emp}}</span>
+        }
+    </div>
+</div>

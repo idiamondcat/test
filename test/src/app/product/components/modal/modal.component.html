@@ -1,0 +1,64 @@
+<div class="modal">
+    <div class="modal__close-btn-wrapper">
+        <button class="modal__close-btn" mat-dialog-close>
+            <mat-icon class="modal__close-btn-icon">close</mat-icon>
+        </button>
+    </div>
+    <mat-dialog-content>
+        <form class="modal__form" [formGroup]="addTaskForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline">
+                <mat-label>Заголовок</mat-label>
+                <input matInput formControlName="title">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Название</mat-label>
+                <input matInput formControlName="name">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Дедлайн</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="deadline">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Приоритет</mat-label>
+                <mat-select formControlName="priority">
+                    <mat-option [value]="priority.low">{{priority.low}}</mat-option>
+                    <mat-option [value]="priority.medium">{{priority.medium}}</mat-option>
+                    <mat-option [value]="priority.high">{{priority.high}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Статус</mat-label>
+                <mat-select formControlName="status">
+                    <mat-option [value]="status.backlog">{{status.backlog}}</mat-option>
+                    <mat-option [value]="status.inprogress">{{status.inprogress}}</mat-option>
+                    <mat-option [value]="status.done">{{status.done}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Исполнители</mat-label>
+                <mat-chip-grid #chipGrid formArrayName="performers">
+                    @for (employee of performers.value; track employee; let idx = $index) {
+                        <mat-chip-row (removed)="removeEmployee(idx)">
+                            {{employee}}
+                            <button matChipRemove [attr.aria-label]="'remove ' + employee">
+                              <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip-row>
+                    }
+                </mat-chip-grid>
+                <input matInput #employeeInput [matChipInputFor]="chipGrid" [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="addEmployee($event)" placeholder="Добавить исполнителя...">
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedEmployee($event)">
+                    @for (employee of allEmployees; track employee) {
+                      <mat-option [value]="employee">{{employee}}</mat-option>
+                    }
+                </mat-autocomplete>
+            </mat-form-field>
+            <div class="modal__btn-wrapper">
+                <button type="submit" class="btn modal__btn" [disabled]="!addTaskForm.valid">Создать</button>
+            </div>
+        </form>
+    </mat-dialog-content>
+</div>

@@ -1,0 +1,49 @@
+@use "../../../../assets/styles/colors" as colors;
+
+.cp-modal {
+    &__close-btn-wrapper {
+        display: flex;
+        justify-content: flex-end;
+    }
+    &__close-btn {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+    &__btn-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+//Custom Styles
+::ng-deep .mdc-text-field--focused:not(.mdc-text-field--disabled):not(.mdc-text-field--invalid) .mdc-notched-outline__leading,
+::ng-deep .mdc-text-field--focused:not(.mdc-text-field--disabled):not(.mdc-text-field--invalid) .mdc-notched-outline__notch,
+::ng-deep .mdc-text-field--focused:not(.mdc-text-field--disabled):not(.mdc-text-field--invalid) .mdc-notched-outline__trailing {
+    border-color: colors.$main !important;
+    border-width: 2px !important;
+}
+
+::ng-deep .mdc-text-field--focused:not(.mdc-text-field--disabled):not(.mdc-text-field--invalid) .mdc-floating-label {
+    color: colors.$main !important;
+}
+
+::ng-deep .mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field .mdc-notched-outline__notch {
+    border-left: none !important;
+}
+
+::ng-deep .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(.mat-mdc-option-multiple) {
+    & > .mdc-list-item__primary-text {
+        color: colors.$main !important;
+    }
+    & > .mat-pseudo-checkbox {
+        &::after {
+            color: colors.$main !important;;
+        }
+    }
+}
