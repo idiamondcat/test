@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { changePerformers } from '../../../redux/actions/task.actions';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { LSService } from '../../services/ls.service';
 // import employees from '../../mock/employees.json';
 
 @Component({
@@ -19,20 +20,25 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   templateUrl: './change-performers-modal.component.html',
   styleUrl: './change-performers-modal.component.scss'
 })
-export class ChangePerformersModalComponent {
+export class ChangePerformersModalComponent implements OnInit {
   @ViewChild('employeeInput') employeeInput: ElementRef<HTMLInputElement>;
   performersForm = this.builder.group({
     newPerformers: this.builder.array<string>([...this.data.performers], [Validators.required, Validators.minLength(1)])
   });
-  allEmployees: string[] = ['Петр', 'Алексей', 'Анна', 'Дмитрий', 'Кристина'];
+  allEmployees: string[];
   filteredEmployees: Observable<string[]>;
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {id: number, performers: string[]},
+  private lsservice: LSService,
   private builder: FormBuilder,
   private store: Store,
   public dialogRef: MatDialogRef<ChangePerformersModalComponent>,
   private snackBar: MatSnackBar) {}
+
+  ngOnInit(): void {
+    this.allEmployees = this.lsservice.getItem('employees');
+  }
 
   get newPerformers(): FormArray<any> {
     return this.performersForm.get('newPerformers') as FormArray;

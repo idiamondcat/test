@@ -3,7 +3,7 @@
         <div class="container container--page">
             <div class="task-details__task">
                 <div class="task-details__header">
-                    <a routerLink="/" title="Назад">
+                    <a class="task-details__back-link" routerLink="/" title="Назад">
                         <mat-icon>arrow_back_ios</mat-icon>
                     </a>
                     <h2>{{task.title}}</h2>
@@ -19,7 +19,7 @@
                             <mat-icon class="task-details__btn-icon">edit</mat-icon>
                         </button>
                     </p>
-                    <span>Дедлайн:</span><span>{{task.deadline?.toString() | date : 'd MMMM y'}}</span>
+                    <span>Дедлайн:</span><span>{{task.deadline?.toString() | date : 'd MMMM y' : '' : 'ru'}}</span>
                     <span>Приоритет:</span>
                     <p><span class="task-details__priority" appPriority [priority]="task.priority!">{{task.priority}}</span></p>
                     <span>Статус:</span>

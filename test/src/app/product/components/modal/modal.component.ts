@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,6 +19,7 @@ import { ITask } from '../../models/task';
 import { Priority } from '../../models/priority';
 import { Status } from '../../models/status';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { LSService } from '../../services/ls.service';
 
 @Component({
   selector: 'app-modal',
@@ -40,7 +41,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss'
 })
-export class ModalComponent {
+export class ModalComponent implements OnInit {
   @ViewChild('employeeInput') employeeInput: ElementRef<HTMLInputElement>;
   addTaskForm = this.builder.group({
     title: new FormControl('', Validators.required),
@@ -52,15 +53,19 @@ export class ModalComponent {
   })
   priority: typeof Priority = Priority;
   status: typeof Status = Status;
-  allEmployees: string[] = ['Петр', 'Алексей', 'Анна', 'Дмитрий', 'Кристина'];
+  allEmployees: string[];
   filteredEmployees: Observable<string[]>;
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  constructor(private builder: FormBuilder, private store: Store, private snackBar: MatSnackBar, public dialogRef: MatDialogRef<ModalComponent>) {
+  constructor(private lsservice: LSService, private builder: FormBuilder, private store: Store, private snackBar: MatSnackBar, public dialogRef: MatDialogRef<ModalComponent>) {
     this.filteredEmployees = this.performers.valueChanges.pipe(
       startWith(null),
       map((employee: string | null): string[] => (employee ? this.allEmployees.filter(emp => emp.includes(employee)) : this.allEmployees.slice())),
     );
+  }
+
+  ngOnInit(): void {
+    this.allEmployees = this.lsservice.getItem('employees');
   }
 
   get performers(): FormArray<any> {

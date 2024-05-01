@@ -17,6 +17,13 @@
         grid-template-columns: 30% 70%;
         gap: 20px;
     }
+    &__back-link {
+        cursor: pointer;
+        transition: opacity .3s ease;
+        &:hover {
+            opacity: .7;
+        }
+    }
     &__extra-wrapper {
         display: flex;
         align-items: center;

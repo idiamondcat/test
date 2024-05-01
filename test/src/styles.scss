@@ -17,6 +17,11 @@ p {
     margin: 0;
 }
 
+a {
+    color: colors.$black;
+    text-decoration: none;
+}
+
 .container {
     max-width: 940px;
     margin: 0 auto;

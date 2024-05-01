@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { PerformersPipe } from '../../pipes/performers.pipe';
+import { LSService } from '../../services/ls.service';
 
 @Component({
   selector: 'app-task-list',
@@ -26,14 +27,15 @@ export class TaskListComponent implements OnInit {
   destroyRef = inject(DestroyRef);
   priority: typeof Priority = Priority;
   status: typeof Status = Status;
-  allEmployees: string[] = ['Петр', 'Алексей', 'Анна', 'Дмитрий', 'Кристина'];
+  allEmployees: string[];
   isASC: boolean = true;
   sortMethod: string = '';
   employee: string = '';
 
-  constructor(public dialog: MatDialog, private store: Store) {}
+  constructor(public dialog: MatDialog, private store: Store, private lsservice: LSService) {}
 
   ngOnInit(): void {
+    this.allEmployees = this.lsservice.getItem('employees');
     this.store.select(selectTasks).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(res => {
       this.allTasks = res;
     });

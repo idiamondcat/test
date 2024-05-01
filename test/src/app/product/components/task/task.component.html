@@ -5,7 +5,7 @@
     </div>
     <h3 class="task__title">{{taskData()?.title}}</h3>
     <p class="task__name">{{taskData()?.name}}</p>
-    <p class="task__date">{{taskData()?.deadline?.toString() | date : 'd MMMM y'}}</p>
+    <p class="task__date">{{taskData()?.deadline?.toString() | date : 'd MMMM y' : '' : 'ru'}}</p>
     <div class="task__performers-wrapper">
         @for(emp of taskData()?.performers; track emp) {
             <span class="performer">{{emp}}</span>
