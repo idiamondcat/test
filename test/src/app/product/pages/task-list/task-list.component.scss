@@ -17,15 +17,22 @@
     }
     &__sorting {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-        column-gap: 10px;
+        gap: 10px;
         margin-bottom: 20px;
     }
     &__sorting-block, &__filter-block {
         display: flex;
         align-items: center;
         column-gap: 10px;
+    }
+    &__sorting-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
     }
     &__sort-btn {
         background-color: transparent;

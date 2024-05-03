@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 import { changePerformers } from '../../../redux/actions/task.actions';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { LSService } from '../../services/ls.service';
-// import employees from '../../mock/employees.json';
 
 @Component({
   selector: 'app-change-performers-modal',

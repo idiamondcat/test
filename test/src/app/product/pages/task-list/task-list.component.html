@@ -10,9 +10,11 @@
         <div class="task-list__sorting">
             <div class="task-list__sorting-block">
                 <span>Сортировать:</span>
-                <button class="task-list__sort-btn" (click)="sortBy('status')">по статусу</button>
-                <button class="task-list__sort-btn" (click)="sortBy('priority')">по приоритету</button>
-                <button class="task-list__sort-btn" (click)="sortBy('deadline')">по дате дедлайна</button>
+                <div class="task-list__sorting-wrapper">
+                    <button class="task-list__sort-btn" (click)="sortBy('status')">по статусу</button>
+                    <button class="task-list__sort-btn" (click)="sortBy('priority')">по приоритету</button>
+                    <button class="task-list__sort-btn" (click)="sortBy('deadline')">по дате дедлайна</button>
+                </div>
             </div>
             <div class="task-list__filter-block">
                 <span>Фильтр:</span>
